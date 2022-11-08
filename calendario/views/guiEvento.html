@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/calendar-main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/675bb23e7a.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/calendar-main.js"></script>
+    <script src="../../js/locales-all.js"></script>
+    
+    <title>Evento</title>
+</head>
+<body>
+    <?php require_once "../../auxiliares/navbar.php"; ?>
+    
+    <div class="container-fluid p-4">
+        <p class="fs-3">
+            <i class="fa-solid fa-calendar-days text-dark text-muted"></i>
+            Evento
+        </p>
+
+        
+        <div class="form-floating mb-3">
+            <input form="eventoEdit" class="form-control" type="date" value="<?php echo $evento['eventoFecha']; ?>" id="eventoFecha" name="eventoFecha">
+            <label for="eventoFecha">Fecha:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input form="eventoEdit" class="form-control" type="time" id="eventoHora" name="eventoHora" placeholder="Hora" value="<?php echo $evento['eventoHora']; ?>" required>
+            <label for="eventoHora">Hora:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input form="eventoEdit" class="form-control" type="text" name="eventoTitulo" id="eventoTitulo" placeholder="Titulo" value="<?php echo $evento['eventoTitulo']; ?>" required>
+            <label for="eventoTitulo">Título:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <textarea form="eventoEdit" class="form-control" id="eventoDescripcion" name="eventoDescripcion" placeholder="Descripción" style="height: 150px;" required><?php echo $evento['eventoDescripcion']; ?></textarea>
+            <label for="eventoDescripcion">Descripción:</label>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <button form="eventoEdit" class="btn btn-primary w-100" type="submit" id="submitEdit">
+                    Guardar
+                </button>
+                <button class="btn btn-primary w-100 d-none" style="height: 38px;" id="loadingEdit" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="col-12 col-md-6">
+                <button form="eventoDelete" class="btn btn-danger w-100" type="submit" id="submitDelete">
+                    Eliminar
+                </button>
+                <button class="btn btn-danger w-100 d-none" style="height: 38px;" id="loadingDelete" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Formulario EDIT -->
+        <input form="eventoEdit" type="text" name="eventoId" id="eventoId" value="<?php echo $eventoId;?>" hidden required>
+        <input form="eventoEdit" type="text" name="type" id="type" value="U" hidden required>
+        <form id="eventoEdit" action="../models/dbEventoAbm.php" method="POST" onsubmit="loadingSubmit('submitEdit', 'loadingEdit');"></form>
+    
+        <!-- Formulario DELETE -->
+        <input form="eventoDelete" type="text" name="eventoId" id="eventoId" value="<?php echo $eventoId;?>" hidden required>
+        <input form="eventoDelete" type="text" name="type" id="type" value="D" hidden required>
+        <form id="eventoDelete" action="../models/dbEventoAbm.php" method="POST" onsubmit="loadingSubmit('submitDelete', 'loadingDelete');"></form>
+        
+    </div>
+
+    <script src="../../js/alerta.js"></script>
+    <script src="../../js/submitForm.js"></script>
+
+</body>
+</html>
